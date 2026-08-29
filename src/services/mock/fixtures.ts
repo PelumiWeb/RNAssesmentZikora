@@ -31,11 +31,14 @@ export const SOURCE_ACCOUNTS = [
 ] as const;
 
 export const BENEFICIARIES = [
-  { id: 'ben_1', name: 'Chidi Umeh', accountNumber: '2011223344', bankCode: '058', bankName: 'GTBank' },
-  { id: 'ben_2', name: 'Ngozi Bala', accountNumber: '3044556677', bankCode: '033', bankName: 'UBA' },
-  { id: 'ben_3', name: 'Tunde Bakare', accountNumber: '4077889900', bankCode: '011', bankName: 'First Bank' },
-  { id: 'ben_4', name: 'Amara Eze', accountNumber: '5099001122', bankCode: '057', bankName: 'Zenith Bank' },
+  { id: 'ben_1', name: 'Michael Eisgbone', initials: 'ME', accountNumber: '2011223344', bankCode: '058', bankName: 'GTBank' },
+  { id: 'ben_2', name: '1k Shop', initials: '1K', accountNumber: '3044556677', bankCode: '033', bankName: 'UBA' },
+  { id: 'ben_3', name: 'Opeyemi Adeniji', initials: 'OA', accountNumber: '4077889900', bankCode: '011', bankName: 'First Bank' },
+  { id: 'ben_4', name: 'Yarima Mary', initials: 'YM', accountNumber: '5099001122', bankCode: '057', bankName: 'Zenith Bank' },
+  { id: 'ben_5', name: 'Inu John', initials: 'IJ', accountNumber: '6011332255', bankCode: '044', bankName: 'Access Bank' },
 ] as const;
+
+export type Beneficiary = (typeof BENEFICIARIES)[number];
 
 const COUNTERPARTIES = [
   'Chidi Umeh', 'Ngozi Bala', 'Tunde Bakare', 'Amara Eze', 'Ifeanyi Nwosu',
