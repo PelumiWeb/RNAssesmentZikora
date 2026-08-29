@@ -76,9 +76,11 @@ describe('repeat taps create exactly one transfer attempt', () => {
     ]);
 
     expect(__transferCount()).toBe(1);
-    expect(__transferRequestCount(intent.idempotencyKey)).toBeGreaterThanOrEqual(1);
-    expect(b).toEqual(a);
-    expect(c).toEqual(a);
+    expect(__transferRequestCount(intent.idempotencyKey)).toBe(3);
+    // Identity, not just equality: concurrent replays must join one outcome, not
+    // each produce their own with a drifting completedAt.
+    expect(b).toBe(a);
+    expect(c).toBe(a);
   });
 
   it('retrying a pending_unknown intent reuses the original key', () => {

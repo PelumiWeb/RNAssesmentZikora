@@ -20,6 +20,8 @@ type StoredTransfer = {
 };
 
 const store = new Map<string, StoredTransfer>();
+/** Requests that have not settled yet, so concurrent replays share one outcome. */
+const inFlight = new Map<string, Promise<WireResult<unknown>>>();
 
 const triggerFor = (amount: Kobo): TransferTrigger => {
   const wholeNaira = Math.floor(amount / 100);
@@ -53,21 +55,7 @@ const resultFor = (trigger: TransferTrigger, key: string): WireResult<unknown> =
   }
 };
 
-/**
- * Keyed by idempotency key: a replay is recorded but never creates a second transfer,
- * and always returns byte-identical output. This is what makes retrying a
- * pending_unknown safe rather than a gamble.
- */
-export const submitTransfer = async (
-  request: TransferRequest,
-): Promise<WireResult<unknown>> => {
-  const existing = store.get(request.idempotencyKey);
-  if (existing) {
-    existing.requests += 1;
-    await delay(120);
-    return existing.result;
-  }
-
+const perform = async (request: TransferRequest): Promise<WireResult<unknown>> => {
   const trigger = triggerFor(request.amount);
 
   if (isOffline()) {
@@ -85,7 +73,40 @@ export const submitTransfer = async (
   return result;
 };
 
-export const __resetTransferStore = (): void => store.clear();
+/**
+ * Keyed by idempotency key: a replay is recorded but never creates a second transfer,
+ * and always returns byte-identical output. Concurrent replays join the in-flight
+ * promise rather than racing, so two taps in the same tick cannot produce two outcomes.
+ */
+export const submitTransfer = async (
+  request: TransferRequest,
+): Promise<WireResult<unknown>> => {
+  const settled = store.get(request.idempotencyKey);
+  if (settled) {
+    settled.requests += 1;
+    await delay(120);
+    return settled.result;
+  }
+
+  const pending = inFlight.get(request.idempotencyKey);
+  if (pending) {
+    const result = await pending;
+    const entry = store.get(request.idempotencyKey);
+    if (entry) entry.requests += 1;
+    return result;
+  }
+
+  const promise = perform(request).finally(() => {
+    inFlight.delete(request.idempotencyKey);
+  });
+  inFlight.set(request.idempotencyKey, promise);
+  return promise;
+};
+
+export const __resetTransferStore = (): void => {
+  store.clear();
+  inFlight.clear();
+};
 export const __transferRequestCount = (key: string): number =>
   store.get(key)?.requests ?? 0;
 export const __transferCount = (): number => store.size;
