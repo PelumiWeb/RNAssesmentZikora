@@ -36,6 +36,14 @@ export const sortTransactions = (list: readonly Transaction[]): Transaction[] =>
     b.timestamp - a.timestamp || (a.id < b.id ? 1 : a.id > b.id ? -1 : 0),
   );
 
+/** Rows read as "Credit from X" / "Sent to X" unless the row has its own description. */
+export const transactionTitle = (tx: Transaction): string => {
+  if (tx.description !== 'Transfer') return tx.description;
+  return tx.direction === 'credit'
+    ? `Credit from ${tx.counterparty}`
+    : `Sent to ${tx.counterparty}`;
+};
+
 export const signedAmountLabel = (tx: Transaction): string =>
   `${tx.direction === 'credit' ? '+' : '-'}${formatNaira(tx.amount)}`;
 

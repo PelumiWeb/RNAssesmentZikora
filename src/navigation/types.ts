@@ -1,6 +1,8 @@
+import { NavigatorScreenParams } from '@react-navigation/native';
+
 export type RootStackParamList = {
   Login: undefined;
-  Tabs: undefined;
+  Tabs: NavigatorScreenParams<TabParamList> | undefined;
   AllTransactions: undefined;
   SendMoney: { beneficiaryId?: string } | undefined;
   Receipt: undefined;
