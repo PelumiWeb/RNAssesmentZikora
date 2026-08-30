@@ -224,7 +224,7 @@ Flagged rather than hidden — each is one line to reverse.
 
 ## Time spent
 
-`START_TIME 22:55` → `02:35`.
+`START_TIME 22:55` → `02:45`.
 
 ## AI / tool disclosure
 
