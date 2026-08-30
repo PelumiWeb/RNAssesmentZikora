@@ -2,6 +2,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import { RootStackParamList } from './types';
 import { TabNavigator } from './TabNavigator';
+import { OnboardingScreen } from '../screens/OnboardingScreen';
 import { LoginScreen } from '../screens/LoginScreen';
 import { AllTransactionsScreen } from '../screens/AllTransactionsScreen';
 import { SendMoneyScreen } from '../screens/SendMoneyScreen';
@@ -36,7 +37,10 @@ export const RootNavigator = () => {
           <Stack.Screen name="Receipt" component={ReceiptScreen} />
         </Stack.Group>
       ) : (
-        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Group>
+          <Stack.Screen name="Onboarding" component={OnboardingScreen} />
+          <Stack.Screen name="Login" component={LoginScreen} />
+        </Stack.Group>
       )}
     </Stack.Navigator>
   );

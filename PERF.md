@@ -3,9 +3,9 @@
 ## Scope of what was actually measured
 
 **Read this first.** The list strategy below is implemented and verified by unit tests and a
-successful Android bundle. **On-device memory and scroll profiling was not performed** — the
-build session had no emulator attached. Rather than invent numbers, the measurement section
-is left as a checklist with the exact commands to fill it in.
+successful Android bundle. **On-device memory and scroll profiling was not performed** — no
+emulator was attached during the build session. Rather than invent numbers, the measurement
+section is left as a checklist with the exact commands to fill it in.
 
 What *was* verified:
 
@@ -15,6 +15,7 @@ What *was* verified:
   pass afterwards.
 - Dedupe and ordering across all 61 pages of the seeded dataset are asserted in
   `src/__tests__/duplicate-identities-collapse.test.ts`.
+
 
 ---
 

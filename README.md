@@ -11,12 +11,15 @@ chrome is ignored deliberately.
 
 ## Setup
 
-Requires Node 20.19+ (built on v20.20.2) and an Android emulator or device with Expo Go.
+Requires Node 20.19+ (built on v20.20.2) and an Android emulator or device running Expo Go.
 
 ```bash
 npm ci          # clean install from the lockfile
 npm run android # or: npm start, then press 'a'
 ```
+
+No native toolchain is needed. The project uses Expo's managed workflow — there are no
+committed `android/` or `ios/` directories, and none are required to run or review the app.
 
 Verification scripts — all three pass:
 
@@ -168,6 +171,20 @@ cannot be reached by any other route.
 
 ---
 
+## Security notes
+
+- **No secrets are committed.** `.env.example` contains no values the app reads; there is no
+  backend and no key to supply.
+- **The mock password (`Password123`) is published on purpose** — it is a hardcoded constant
+  in `src/services/mock/config.ts` with no real account behind it.
+- **No signing material is committed.** The project runs in Expo Go; there is no keystore,
+  provisioning profile or release key anywhere in the repo.
+- **Nothing sensitive is logged.** There is not a single `console.*` call anywhere in `src/`.
+- **All data is fake.** Names, account numbers, balances and references are invented fixtures,
+  so nothing in the app or a recording of it needs redacting.
+- The session token lives in `expo-secure-store` (Keystore/Keychain-backed), not
+  AsyncStorage.
+
 ## Deliberate deviations from the design
 
 Flagged rather than hidden — each is one line to reverse.
@@ -200,7 +217,7 @@ Flagged rather than hidden — each is one line to reverse.
   account, Contact Support, Home's `+`, Buy Data / Help / Savings, Beneficiaries "See all",
   Send via Phone/Email, Buy Airtime, Pay a Bill.
 - **No E2E** — the optional Maestro bonus was not attempted.
-- **No release build** — verified via `expo export` (Android bundle compiles) and Expo Go,
+- **No release build** — verified via `expo export` (the Android bundle compiles) and Expo Go,
   not a signed APK.
 
 ---
