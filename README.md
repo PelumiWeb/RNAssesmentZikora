@@ -224,7 +224,8 @@ Flagged rather than hidden — each is one line to reverse.
 
 ## Time spent
 
-`START_TIME 22:55` → `02:45`.
+<<<<<<< HEAD
+`START_TIME 22:55` → `02:48`.
 
 ## AI / tool disclosure
 
@@ -237,6 +238,9 @@ I authored.
 I reviewed every diff and made every commit myself,
   one logical slice at a time, so I own and can defend every change.
 - Two defects were found by tooling rather than by inspection, and are documented in
+=======
+`START_TIME 22:55` → `02:35`.
+>>>>>>> e87a7037545e7ce3cf2dd18c949cf5656ac67636
   `TESTS.md`: a concurrency bug in the mock's idempotency handling, surfaced by an
   intermittent test failure, and a ref-read-during-render caught by ESLint.
 
