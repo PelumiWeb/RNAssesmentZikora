@@ -224,9 +224,7 @@ Flagged rather than hidden — each is one line to reverse.
 
 ## Time spent
 
-<!-- Hassan: fill in from your own log before submitting. -->
-`START_TIME 22:55` → _TBD_.
-
+`START_TIME 22:55` → `02:35`.
   `TESTS.md`: a concurrency bug in the mock's idempotency handling, surfaced by an
   intermittent test failure, and a ref-read-during-render caught by ESLint.
 
