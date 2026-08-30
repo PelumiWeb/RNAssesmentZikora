@@ -1,3 +1,15 @@
+
+
+https://github.com/user-attachments/assets/a6e21a7f-b6cc-4048-bf2a-8fd661719743
+
+
+
+
+
+
+
+
+
 # Zikora — React Native take-home
 
 A mobile banking flow built against a local mock service: login, a 3,000-row transaction
