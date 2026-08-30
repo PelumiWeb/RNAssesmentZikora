@@ -224,9 +224,19 @@ Flagged rather than hidden — each is one line to reverse.
 
 ## Time spent
 
-<!-- Hassan: fill in from your own log before submitting. -->
-`START_TIME 22:55` → _TBD_.
+`START_TIME 22:55` → `02:35`.
 
+## AI / tool disclosure
+
+This project was built using **Claude Code (Claude Opus 5)** as a pair-programming tool,
+driven interactively from a written build spec (`CLAUDE.md`, committed in this repo) that
+I authored.
+
+- The spec, architecture constraints and all product decisions are mine.
+- Claude wrote the implementation and tests slice by slice under that spec.
+I reviewed every diff and made every commit myself,
+  one logical slice at a time, so I own and can defend every change.
+- Two defects were found by tooling rather than by inspection, and are documented in
   `TESTS.md`: a concurrency bug in the mock's idempotency handling, surfaced by an
   intermittent test failure, and a ref-read-during-render caught by ESLint.
 
